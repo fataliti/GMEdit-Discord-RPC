@@ -1,0 +1,5 @@
+{
+	"name": "discord-status",
+	"description": "set discord status",
+	"scripts": ["main.js"]
+}
