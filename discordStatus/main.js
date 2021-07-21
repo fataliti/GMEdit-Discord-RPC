@@ -9,6 +9,13 @@
                 setActivity();
             });
 
+            
+            
+            const keys = [
+                ['GameMaker Project','GameMaker: Studio Project','GameMaker: Studio 2 Project'],
+                ['gm8','gms1','gms2'],
+            ];
+
             var activity = {
                 details: "GMEdit",
                 state: "WelcomePage",
@@ -24,12 +31,21 @@
             GMEdit.on("projectOpen", function(e) {
                 activity.details = 'project: ' + e.project.displayName;
                 activity.startTimestamp = Date.now();
+                let ver = $gmedit["gml.Project"].current.version.config.projectModeId;
+                if (ver != 2 && ver != 1) {
+                    ver = 0;
+                }
+                activity.smallImageKey = keys[1][ver],
+                activity.smallImageText = keys[0][ver],
                 rpc.setActivity(activity);
             });
+
             GMEdit.on("projectClose", function(e) {
                 activity.details = 'GMEdit';
                 activity.state = 'WelcomePage';
-                activity.startTimestamp = null,
+                activity.startTimestamp = null;
+                activity.smallImageKey = 'null';
+                activity.smallImageText = 'null';
                 rpc.setActivity(activity);
             });
             GMEdit.on("fileOpen", function(e) {
